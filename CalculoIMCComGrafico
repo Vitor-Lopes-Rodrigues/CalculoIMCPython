@@ -1,12 +1,9 @@
-"""
-Projeto Acadêmico: Cálculo de IMC (Índice de Massa Corporal)
-Autor: Integrantes do grupo
-Descrição: Este programa calcula o IMC do usuário com base no peso e altura informados,
-           classifica o resultado e sugere um peso mínimo recomendado.
-Última alteração: 24-02-2025
-Versão: 1.0
-"""
-
+#Projeto Acadêmico: Cálculo de IMC (Índice de Massa Corporal)
+#Autor: Integrantes do grupo
+#Descrição: Este programa calcula o IMC do usuário com base no peso e altura informados,
+#           classifica o resultado e sugere um peso mínimo recomendado.
+#Última alteração: 24-02-2025
+#Versão: 1.0
 
 # Importa as bibliotecas necessárias
 import datetime  # Para capturar data e hora do registro
@@ -30,20 +27,18 @@ def classificar_imc(imc):
         return "Obesidade Grau 3"
 
 def registrar_progresso(registros):
-
-"""
-    Exibe um histórico das medições de IMC registradas.
-    Parâmetros:
-    registros (list): Lista de tuplas contendo data, peso, IMC e classificação.
-"""
-
     print("\nHistórico de IMC:")
-    for data, peso, imc, classificacao in registros:
-        print(f"{data}: Peso: {peso} kg, IMC: {imc:.2f}, Classificação: {classificacao}")
+    for data, peso, altura, imc, classificacao in registros:
+        print(f"{data}: Peso: {peso} kg, Altura: {altura:.2f} m, IMC: {imc:.2f}, Classificação: {classificacao}")
+
+
+#    Exibe um histórico das medições de IMC registradas.
+#    Parâmetros:
+#    registros (list): Lista de tuplas contendo data, peso, IMC e classificação.
 
 def gerar_grafico(registros):
-    datas = [datetime.datetime.strptime(data, "%d/%m/%Y %H:%M:%S") for data, _, _, _ in registros]
-    imcs = [imc for _, _, imc, _ in registros]
+    datas = [datetime.datetime.strptime(data, "%d/%m/%Y %H:%M:%S") for data, _, _, _, _ in registros]
+    imcs = [imc for _, _, _, imc, _ in registros]
     
     # Configurações do gráfico
     plt.figure(figsize=(10, 5))
@@ -56,19 +51,20 @@ def gerar_grafico(registros):
     plt.grid()  # Adiciona uma grade ao gráfico
     plt.show()  # Exibe o gráfico
 
-
 # Função principal MAIN
 def main():
-    altura = float(input("Digite sua altura em metros: "))
     registros = []
     while True:
         peso = float(input("\nDigite seu peso atual em kg (ou 0 para sair): "))
         if peso == 0:
             break
+        altura = float(input("Digite sua altura em metros (ou 0 para sair): "))
+        if altura == 0:
+            break
         imc = calcular_imc(peso, altura)
         classificacao = classificar_imc(imc)
         data = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        registros.append((data, peso, imc, classificacao))
+        registros.append((data, peso, altura, imc, classificacao))
         print(f"Seu IMC é: {imc:.2f}")
         print(f"Classificação: {classificacao}")
     
