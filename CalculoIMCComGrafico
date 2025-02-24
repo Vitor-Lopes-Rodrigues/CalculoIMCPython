@@ -1,0 +1,59 @@
+import datetime
+import matplotlib.pyplot as plt
+
+def calcular_imc(peso, altura):
+    return peso / (altura ** 2)
+
+def classificar_imc(imc):
+    if imc < 18.5:
+        return "Abaixo do peso"
+    elif 18.5 <= imc < 24.9:
+        return "Peso normal"
+    elif 25 <= imc < 29.9:
+        return "Sobrepeso"
+    elif 30 <= imc < 34.9:
+        return "Obesidade Grau 1"
+    elif 35 <= imc < 39.9:
+        return "Obesidade Grau 2"
+    else:
+        return "Obesidade Grau 3"
+
+def registrar_progresso(registros):
+    print("\nHistórico de IMC:")
+    for data, peso, imc, classificacao in registros:
+        print(f"{data}: Peso: {peso} kg, IMC: {imc:.2f}, Classificação: {classificacao}")
+
+def gerar_grafico(registros):
+    datas = [datetime.datetime.strptime(data, "%d/%m/%Y %H:%M:%S") for data, _, _, _ in registros]
+    imcs = [imc for _, _, imc, _ in registros]
+    
+    plt.figure(figsize=(10, 5))
+    plt.plot(datas, imcs, marker='o', linestyle='-', color='b', label='IMC')
+    plt.xlabel("Data")
+    plt.ylabel("IMC")
+    plt.title("Evolução do IMC")
+    plt.xticks(rotation=45)
+    plt.legend()
+    plt.grid()
+    plt.show()
+
+def main():
+    altura = float(input("Digite sua altura em metros: "))
+    registros = []
+    while True:
+        peso = float(input("\nDigite seu peso atual em kg (ou 0 para sair): "))
+        if peso == 0:
+            break
+        imc = calcular_imc(peso, altura)
+        classificacao = classificar_imc(imc)
+        data = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        registros.append((data, peso, imc, classificacao))
+        print(f"Seu IMC é: {imc:.2f}")
+        print(f"Classificação: {classificacao}")
+    
+    if registros:
+        registrar_progresso(registros)
+        gerar_grafico(registros)
+
+if __name__ == "__main__":
+    main()
