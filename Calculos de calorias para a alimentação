@@ -1,3 +1,13 @@
+"""
+Projeto Acadêmico: Cálculo de IMC (Índice de Massa Corporal)
+Autor: Integrantes do grupo
+Descrição: Este programa calcula o IMC do usuário com base no peso e altura informados,
+           classifica o resultado e sugere um peso mínimo recomendado.
+Última alteração: 24-02-2025
+Versão: 1.0
+"""
+
+
 def calcular_tmb(peso, altura, idade):
     """
     Calcula a Taxa Metabólica Basal (TMB) para mulheres usando a equação de Mifflin-St Jeor.

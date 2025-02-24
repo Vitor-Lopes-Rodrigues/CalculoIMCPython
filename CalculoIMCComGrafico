@@ -1,5 +1,16 @@
-import datetime
-import matplotlib.pyplot as plt
+"""
+Projeto Acadêmico: Cálculo de IMC (Índice de Massa Corporal)
+Autor: Integrantes do grupo
+Descrição: Este programa calcula o IMC do usuário com base no peso e altura informados,
+           classifica o resultado e sugere um peso mínimo recomendado.
+Última alteração: 24-02-2025
+Versão: 1.0
+"""
+
+
+# Importa as bibliotecas necessárias
+import datetime  # Para capturar data e hora do registro
+import matplotlib.pyplot as plt  # Para gerar gráficos da evolução do IMC
 
 def calcular_imc(peso, altura):
     return peso / (altura ** 2)
@@ -19,6 +30,13 @@ def classificar_imc(imc):
         return "Obesidade Grau 3"
 
 def registrar_progresso(registros):
+
+"""
+    Exibe um histórico das medições de IMC registradas.
+    Parâmetros:
+    registros (list): Lista de tuplas contendo data, peso, IMC e classificação.
+"""
+
     print("\nHistórico de IMC:")
     for data, peso, imc, classificacao in registros:
         print(f"{data}: Peso: {peso} kg, IMC: {imc:.2f}, Classificação: {classificacao}")
@@ -27,16 +45,19 @@ def gerar_grafico(registros):
     datas = [datetime.datetime.strptime(data, "%d/%m/%Y %H:%M:%S") for data, _, _, _ in registros]
     imcs = [imc for _, _, imc, _ in registros]
     
+    # Configurações do gráfico
     plt.figure(figsize=(10, 5))
     plt.plot(datas, imcs, marker='o', linestyle='-', color='b', label='IMC')
-    plt.xlabel("Data")
-    plt.ylabel("IMC")
-    plt.title("Evolução do IMC")
-    plt.xticks(rotation=45)
-    plt.legend()
-    plt.grid()
-    plt.show()
+    plt.xlabel("Data")  # Rótulo do eixo X
+    plt.ylabel("IMC")  # Rótulo do eixo Y
+    plt.title("Evolução do IMC")  # Título do gráfico
+    plt.xticks(rotation=45)  # Rotaciona os rótulos do eixo X para melhor visualização
+    plt.legend()  # Adiciona legenda ao gráfico
+    plt.grid()  # Adiciona uma grade ao gráfico
+    plt.show()  # Exibe o gráfico
 
+
+# Função principal MAIN
 def main():
     altura = float(input("Digite sua altura em metros: "))
     registros = []
