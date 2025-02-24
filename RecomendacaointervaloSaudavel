@@ -1,0 +1,57 @@
+def calcular_imc(peso, altura):
+    imc = peso / (altura ** 2)
+    return imc
+
+def classificar_imc(imc):
+    if imc < 18.5:
+        return "Abaixo do peso"
+    elif 18.5 <= imc < 24.9:
+        return "Peso normal"
+    elif 25 <= imc < 29.9:
+        return "Sobrepeso"
+    elif 30 <= imc < 34.9:
+        return "Obesidade Grau 1"
+    elif 35 <= imc < 39.9:
+        return "Obesidade Grau 2"
+    else:
+        return "Obesidade Grau 3"
+
+def calcular_peso_minimo(altura):
+    return 18.5 * (altura ** 2)
+
+def calcular_peso_maximo(altura):
+    return 24.9 * (altura ** 2)
+
+def recomendar_calorias(imc, peso, altura):
+    # Média de calorias recomendadas para manutenção do peso: 25 calorias por kg
+    calorias_bmr = 25 * peso  # Cálculo básico, considerando que o valor depende do peso
+
+    if imc < 18.5:
+        calorias_recomendadas = calorias_bmr + 200  # Para quem está abaixo do peso
+        recomendacao = "Para ganhar peso"
+    elif 18.5 <= imc < 24.9:
+        calorias_recomendadas = calorias_bmr  # Para quem está com peso normal
+        recomendacao = "Para manutenção do peso"
+    elif 25 <= imc < 29.9:
+        calorias_recomendadas = calorias_bmr - 200  # Para quem está com sobrepeso
+        recomendacao = "Para perder peso"
+    else:
+        calorias_recomendadas = calorias_bmr - 400  # Para quem está com obesidade
+        recomendacao = "Para perder peso de forma significativa"
+
+    return calorias_recomendadas, recomendacao
+
+peso = float(input("Digite seu peso em kg: "))
+altura = float(input("Digite sua altura em metros: "))
+
+imc = calcular_imc(peso, altura)
+classificacao = classificar_imc(imc)
+peso_minimo = calcular_peso_minimo(altura)
+peso_maximo = calcular_peso_maximo(altura)
+calorias_recomendadas, recomendacao = recomendar_calorias(imc, peso, altura)
+
+print(f"Seu IMC é: {imc:.2f}")
+print(f"Classificação: {classificacao}")
+print(f"Peso mínimo recomendado: {peso_minimo:.2f} kg")
+print(f"Peso máximo recomendado: {peso_maximo:.2f} kg")
+print(f"Calorias recomendadas por dia: {calorias_recomendadas:.0f} kcal ({recomendacao})")
