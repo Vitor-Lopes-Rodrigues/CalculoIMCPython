@@ -1,0 +1,58 @@
+def calcular_tmb(peso, altura, idade):
+    """
+    Calcula a Taxa Metabólica Basal (TMB) para mulheres usando a equação de Mifflin-St Jeor.
+    :param peso: Peso em kg
+    :param altura: Altura em cm
+    :param idade: Idade em anos
+    :return: TMB em kcal
+    """
+    return (10 * peso) + (6.25 * altura) - (5 * idade) - 161
+
+def calcular_gcd(tmb, nivel_atividade):
+    """
+    Ajusta a TMB pelo nível de atividade física.
+    :param tmb: Taxa Metabólica Basal
+    :param nivel_atividade: Fator de multiplicação de acordo com o nível de atividade
+    :return: Gasto Calórico Diário (GCD)
+    """
+    fatores_atividade = {
+        "sedentario": 1.2,
+        "levemente_ativo": 1.375,
+        "moderadamente_ativo": 1.55,
+        "muito_ativo": 1.725,
+        "extremamente_ativo": 1.9
+    }
+    return tmb * fatores_atividade.get(nivel_atividade, 1.2)  # Padrão para sedentário
+
+def calcular_peso_maximo_imc(altura, imc_maximo=24.9):
+    """
+    Calcula o peso máximo recomendado com base no IMC máximo saudável.
+    :param altura: Altura em cm
+    :param imc_maximo: IMC máximo considerado saudável (padrão 24.9)
+    :return: Peso máximo em kg
+    """
+    altura_m = altura / 100  # Converter cm para metros
+    return imc_maximo * (altura_m ** 2)
+
+def main():
+    peso = float(input("Digite seu peso (kg): "))
+    altura = float(input("Digite sua altura (cm): "))
+    idade = int(input("Digite sua idade: "))
+    print("Níveis de atividade: sedentario, levemente_ativo, moderadamente_ativo, muito_ativo, extremamente_ativo")
+    nivel_atividade = input("Escolha seu nível de atividade: ")
+    
+    tmb = calcular_tmb(peso, altura, idade)
+    gcd = calcular_gcd(tmb, nivel_atividade)
+    peso_maximo = calcular_peso_maximo_imc(altura)
+    
+    print(f"\nSua TMB é: {tmb:.2f} kcal")
+    print(f"Seu gasto calórico diário estimado é: {gcd:.2f} kcal")
+    print(f"Peso máximo recomendado pelo IMC: {peso_maximo:.2f} kg")
+    
+    print("\nPara alcançar seus objetivos:")
+    print(f"Manutenção de peso: {gcd:.2f} kcal/dia")
+    print(f"Perda de peso (~500 kcal a menos): {gcd - 500:.2f} kcal/dia")
+    print(f"Ganho de peso (~500 kcal a mais): {gcd + 500:.2f} kcal/dia")
+
+if __name__ == "__main__":
+    main()
