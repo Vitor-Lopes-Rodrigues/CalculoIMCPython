@@ -28,7 +28,7 @@ O IMC é calculado com a seguinte fórmula:
 2. Clone este repositório ou faça o download do arquivo.
 3. Execute o seguinte comando no terminal:
    ```bash
-   python calculo_imc.py
+   CalculoIMCComGrafico.py
    ```
 4. Insira os valores solicitados (peso e altura) para obter o resultado do IMC.
 
